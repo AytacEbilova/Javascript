@@ -1,9 +1,9 @@
 import { BASE_URL } from "./constant.js";
 
 const url = new URLSearchParams(window.location.search);
-const id = url.get("id"); // Fixed the parameter name
+const id = url.get("id"); 
 
-console.log(id); // Removed the quotation marks around "id"
+console.log(id);
 
 const wrapper = document.querySelector(".wrapper");
 
@@ -28,4 +28,3 @@ function drawDetailPage(data) {
 
 getDetails("suppliers", id); 
 
-asyn

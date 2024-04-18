@@ -1,4 +1,5 @@
 import { BASE_URL } from "./constant.js";
+import { deleteSupplierByID } from "./category.js";
 const loadingOverlay=document.getElementById("loading-overlay")
 async function getData(endpoint) {
   
@@ -24,7 +25,7 @@ const lists = document.querySelector(".lists");
 function drawLists(array) {
   array.forEach((element) => {
     lists.innerHTML += `
-      <tr>
+      <tr id="data-id">
         <th scope="row">${element.id}</th>
         <td>${element.companyName}</td>
         <td>${element.address.street}</td>
@@ -35,11 +36,48 @@ function drawLists(array) {
         <td><button class="btn btn-danger" id="deleteBtn">Delete</button></td>
       </tr>
     `;
-  });
-}
+    
+    const editBtn = document.querySelectorAll("#editBtn");
+    const deleteBtn = document.querySelectorAll("#deleteBtn");
+    //delete btn
 
-const editBtn = document.getElementById("editBtn");
-const deleteBtn = document.getElementById("deleteBtn");
+      deleteBtn.forEach((btn)=>{
+        btn.addEventListener('click',function(){
+          this.closest("tr").getAttribute("data-id");
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              deleteSupplierByID(element.id);
+              this.closest("tr").remove();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+        })
+        
+
+      })
+      // editBtn.forEach((btn)=>{
+      //   btn.addEventListener('click',function(){
+
+      //   })
+      // })
+    })
+  };
+
+
+
+
 
 
 
